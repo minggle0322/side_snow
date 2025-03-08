@@ -1,0 +1,92 @@
+/* 헤더 전체 스타일 */
+.header {
+    align-items: center;
+    padding: 1rem 2rem 0.1rem;
+    background-color: #333;
+    color: white;
+  }
+
+.mainnav {
+    justify-content: space-between;
+    display: flex;
+}
+  
+  /* 로고 스타일 */
+  .logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+  }
+  
+  /* 네비게이션 메뉴 스타일 */
+  .nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-item {
+    margin-left: 1.5rem;
+  }
+  
+  .nav-item a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  
+  .nav-item a:hover {
+    color: #f0a500;
+  }
+
+  .hover-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+
+  .hover-item {
+    position: relative; /* 드롭다운 메뉴 위치 기준 */
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu {
+    display: block;
+    visibility: hidden;
+    position: absolute;
+    top: 100%; /* 상위 항목 아래에 위치 */
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    background-color: white;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10; /* 다른 요소 위에 표시 */
+    color: black;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .dropdown-menu li {
+    padding: 10px 20px;
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+  }
+  
+  .dropdown-menu li:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* 호버 시 드롭다운 메뉴 표시 */
+  .hover-item:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  

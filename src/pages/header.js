@@ -7,15 +7,15 @@ const Header = () => {
     <header className="header">
         <div className="mainnav">
             <div className="logo">
-                <li>logo</li>
+                <Link to ="/">logo</Link>
             </div>
             <nav className="nav">
                 <ul className="nav-list">
                     <li className="nav-item">
-                        <li>로그인</li>
+                        <Link to ="/login">로그인</Link>
                     </li>
                     <li className="nav-item">
-                        <li>회원가입</li>
+                        <Link to="/signup">회원가입</Link>
                     </li>
                 </ul>
             </nav>

@@ -1,15 +1,25 @@
-import React from "react";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from "./pages/main";
 import Header from "./pages/header";
+import Signup from "./pages/signup";
+import Login from "./pages/login";
 
-const App = () => {
-  return (
-    <div>
-            <Header />
-      <Home />  {/* Home 컴포넌트 표시 */}
+function App() {
 
-    </div>
-  );
-};
 
+
+   return (
+    <Router>
+       <div>
+        <Header/>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<Signup/>} />
+          <Route path="/login" element={<Login/>} />
+        </Routes>
+       </div>
+    </Router>
+   );
+}
 export default App;

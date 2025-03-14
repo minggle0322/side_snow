@@ -5,9 +5,9 @@ import './signup.css';
 const Signup = () => {
   const [formData, setFormData] = useState({
     nickname: '',
-    username: '',
+    loginId: '',
     password: '',
-    confirmPassword: '',
+    passwordCheck: '',
     position: '',
   });
   const [error, setError] = useState('');
@@ -21,24 +21,41 @@ const Signup = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
+    if (formData.password !== formData.passwordCheck) {
       setError('비밀번호가 일치하지 않습니다.');
       return;
     }
 
-    // 회원가입 로직 구현 (예: API 호출)
-    console.log('회원가입 데이터:', formData);
-    setError('');
-    alert('회원가입이 완료되었습니다!');
-    navigate('/'); // 회원가입 성공 시 홈 화면으로 이동
+    try {
+      const response = await fetch('http://3.39.173.116:8080/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nickname: formData.nickname,
+          loginId: formData.loginId,
+          password: formData.password,
+          position: formData.position,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('회원가입에 실패했습니다.');
+      }
+
+      alert('회원가입이 완료되었습니다!');
+      navigate('/');
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
     <div>
-        
       <h2 className="signup">회원가입</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSubmit}>
@@ -56,8 +73,8 @@ const Signup = () => {
           <label>아이디:</label>
           <input
             type="text"
-            name="username"
-            value={formData.username}
+            name="loginId"
+            value={formData.loginId}
             onChange={handleChange}
             required
           />
@@ -76,8 +93,8 @@ const Signup = () => {
           <label>비밀번호 확인:</label>
           <input
             type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
+            name="passwordCheck"
+            value={formData.passwordCheck}
             onChange={handleChange}
             required
           />

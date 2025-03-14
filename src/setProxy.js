@@ -1,12 +1,10 @@
-// src/main/frontend/src/setProxy.js
-
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function(app) {
   app.use(
-    '/api',
+    '/main',
     createProxyMiddleware({
-      target: 'http://localhost:8080'
+      target: 'http://3.39.173.116:8080',	
       changeOrigin: true,
     })
   );

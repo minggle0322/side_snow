@@ -29,6 +29,18 @@ const Signup = () => {
       return;
     }
 
+    if (formData.password.length < 8) {
+      setError('비밀번호는 최소 8자 이상이어야 합니다.');
+      return;
+    }
+
+    console.log("보내는 데이터:", {
+      nickname: formData.nickname,
+      loginId: formData.loginId,
+      password: formData.password,
+      position: formData.position,
+    });
+
     try {
       const response = await fetch('http://3.39.173.116:8080/member/register', {
         method: 'POST',

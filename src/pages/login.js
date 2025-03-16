@@ -24,7 +24,7 @@ const Login = () => {
 
     try {
       // 백엔드로 데이터 전송
-      const response = await axios.post('http://localhost:8080/api/login', {
+      const response = await axios.post('http://3.39.173.116:8080/member/login', {
         username: formData.username,
         password: formData.password,
       });

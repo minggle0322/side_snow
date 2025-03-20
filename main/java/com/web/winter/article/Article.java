@@ -4,11 +4,14 @@ import com.web.winter.comment.Comment;
 import com.web.winter.member.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity @Getter
+@NoArgsConstructor
+@Entity
+@Getter
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +38,7 @@ public class Article {
         this.title = title;
         this.content = content;
         this.author = author;
-        this.createTime = LocalDateTime.now();
+        this.createTime = createTime;
     }
 }
 

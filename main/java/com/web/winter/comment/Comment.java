@@ -4,9 +4,13 @@ import com.web.winter.article.Article;
 import com.web.winter.member.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
-@Entity @Getter
+@NoArgsConstructor
+@Entity
+@Getter
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +26,7 @@ public class Comment {
     @ManyToOne
     private Article article;
 
-    public Comment(String content, Member author, LocalDateTime createTime, Article article) {
+    public Comment(String content, Member author, Article article) {
         this.content = content;
         this.author = author;
         this.createTime = LocalDateTime.now();

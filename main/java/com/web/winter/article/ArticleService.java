@@ -1,7 +1,6 @@
 package com.web.winter.article;
 
 import com.web.winter.member.Member;
-import com.web.winter.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +25,15 @@ public class ArticleService {
         return articleRepository.findAllByArticleType(ArticleType.GATHER);
     }
 
-    public Article create(ArticleForm articleForm, Member author) {
-        Article article = new Article(articleForm.getArticleType(), articleForm.getTitle(), articleForm.getContent(),
-                author,LocalDateTime.now());
+    public Article createFreeArticle(ArticleForm articleForm, Member author) {
+        Article article = new Article(ArticleType.FREE, articleForm.getTitle(), articleForm.getContent(),
+                author, LocalDateTime.now());
+        return this.articleRepository.save(article);
+    }
+
+    public Article createGatherArticle(ArticleForm articleForm, Member author) {
+        Article article = new Article(ArticleType.GATHER, articleForm.getTitle(), articleForm.getContent(),
+                author, LocalDateTime.now());
         return this.articleRepository.save(article);
     }
 

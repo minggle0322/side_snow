@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/articles")
+@RequestMapping("/article")
 public class ArticleController {
     private final ArticleService articleService;
     private final MemberService memberService;
@@ -30,9 +30,9 @@ public class ArticleController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/free")
-    public ResponseEntity<Article> createArticle(@RequestBody @Valid ArticleForm articleForm, Principal principal) {
+    public ResponseEntity<Article> createFreeArticle(@RequestBody @Valid ArticleForm articleForm, Principal principal) {
         Member member = this.memberService.getMember(principal.getName());
-        Article article = this.articleService.create(articleForm, member);
+        Article article = this.articleService.createFreeArticle(articleForm, member);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(article);
     }
@@ -54,5 +54,14 @@ public class ArticleController {
         List<Article> gatherArticles = articleService.getGatherArticles();
 
         return ResponseEntity.ok(gatherArticles);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/gather")
+    public ResponseEntity<Article> createGatherArticle(@RequestBody @Valid ArticleForm articleForm, Principal principal) {
+        Member member = this.memberService.getMember(principal.getName());
+        Article article = this.articleService.createGatherArticle(articleForm, member);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(article);
     }
 }

@@ -42,7 +42,7 @@ const Header = () => {
                     <li className="hover-item">
                     커뮤니티    
                         <ul className="dropdown-menu">
-                            <li>자유게시판</li>
+                            <Link to="/board">자유게시판</Link>
                             <li>같이탈사람</li>
                         </ul>
                     </li>

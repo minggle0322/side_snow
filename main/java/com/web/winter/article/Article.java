@@ -40,5 +40,12 @@ public class Article {
         this.author = author;
         this.createTime = createTime;
     }
+
+    public void edit(String title, String content, LocalDateTime editTime) {
+        this.title = title;
+        this.content = content;
+        this.createTime = editTime;
+    }
 }
+
 

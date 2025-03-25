@@ -26,10 +26,10 @@ public class Comment {
     @ManyToOne
     private Article article;
 
-    public Comment(String content, Member author, Article article) {
+    public Comment(String content, Member author, LocalDateTime createTime, Article article) {
         this.content = content;
         this.author = author;
-        this.createTime = LocalDateTime.now();
+        this.createTime = createTime;
         this.article = article;
     }
 }

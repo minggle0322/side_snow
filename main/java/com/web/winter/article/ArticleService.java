@@ -1,5 +1,7 @@
 package com.web.winter.article;
 
+import com.web.winter.comment.Comment;
+import com.web.winter.comment.CommentRepository;
 import com.web.winter.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ArticleService {
     private final ArticleRepository articleRepository;
+    private final CommentRepository commentRepository;
 
     public List<Article> getArticles() {
         return articleRepository.findAll();
@@ -37,7 +40,20 @@ public class ArticleService {
         return this.articleRepository.save(article);
     }
 
+    public Article edit(Article article, String title, String content, LocalDateTime editTime) {
+        article.edit(title, content, editTime);
+        return this.articleRepository.save(article);
+    }
+
+    public void delete(Article article) {
+        this.articleRepository.delete(article);
+    }
+
     public Optional<Article> getArticle(Long id) {
         return this.articleRepository.findById(id);
+    }
+
+    public List<Comment> getCommentList(Article article) {
+        return this.commentRepository.findAllByArticle(article);
     }
 }

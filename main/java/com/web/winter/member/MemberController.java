@@ -5,26 +5,31 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
-    private final AuthenticationManager authenticationManager;
 
-    @GetMapping("/checkNickname")
-    public ResponseEntity<String> checkNickname(@RequestParam("nickname") String nickname) {
+    @PostMapping("/checkNickname")
+    public ResponseEntity<String> checkNickname(@RequestBody Map<String, String> request) {
+        String nickname = request.get("nickname");
         memberService.checkNickname(nickname);
 
         return ResponseEntity.ok("checkNickname");
     }
 
-    @GetMapping("/checkUsername")
-    public ResponseEntity<String> checkUsername(@RequestParam("username") String username) {
+    @PostMapping("/checkUsername")
+    public ResponseEntity<String> checkUsername(@RequestBody Map<String, String> request) {
+        String username = request.get("username");
         memberService.checkUsername(username);
 
         return ResponseEntity.ok("checkUsername");

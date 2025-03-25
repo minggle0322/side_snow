@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // axios import
-import './login.css'; // CSS 파일 (선택 사항)
+import axios from 'axios';
+import './login.css';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -23,19 +23,37 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      // 백엔드로 데이터 전송
+      // 1. 백엔드로 로그인 요청
       const response = await axios.post('http://3.39.173.116:8080/member/login', {
         username: formData.username,
         password: formData.password,
       });
 
-      console.log('서버 응답:', response.data);
-      setError('');
-      alert('로그인 성공!');
-      navigate('/'); // 로그인 성공 시 홈 화면으로 이동
+      // 2. 토큰 추출 (Bearer 접두사 제거)
+      const rawToken = response.data.accessToken || 
+                      response.data.token ||
+                      response.headers['authorization'] ||
+                      response.headers['Authorization'];
+
+      if (!rawToken) {
+        throw new Error('토큰이 응답에 없습니다');
+      }
+
+      // 3. 순수 토큰 값만 추출 (Bearer 제거)
+      const pureToken = rawToken.replace(/^Bearer\s+/i, '');
+      localStorage.setItem('token', pureToken); // Bearer 없이 저장
+      console.log('저장된 토큰:', pureToken);
+
+      // 4. 로그인 성공 처리
+      navigate('/');
+
     } catch (error) {
-      console.error('로그인 실패:', error);
-      setError('아이디 또는 비밀번호가 잘못되었습니다.');
+      console.error('로그인 실패:', {
+        status: error.response?.status,
+        data: error.response?.data,
+        message: error.message
+      });
+      setError(error.response?.data?.message || '아이디 또는 비밀번호가 잘못되었습니다.');
     }
   };
 

@@ -8,7 +8,6 @@ const BoardWrite = () => {
   const [formData, setFormData] = useState({
     title: '',
     content: '',
-    author: ''
   });
 
   const handleChange = (e) => {
@@ -20,14 +19,41 @@ const BoardWrite = () => {
   };
 
   const handleSubmit = async (e) => {
+    console.log(localStorage.getItem('token')); // 정상적인 토큰 값 출력 확인
     e.preventDefault();
     try {
-      await axios.post('http://3.39.173.116:8080/article/free', formData);
+      // 1. 토큰 필수 확인
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('로그인이 필요합니다.');
+        return navigate('/login');
+      }
+  
+      // 2. 요청 데이터 + 헤더에 토큰 포함
+      const response = await axios.post(
+        'http://3.39.173.116:8080/article/free',
+        formData, // JSON 데이터 { title, content }
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+  
+      // 3. 성공 시 처리
+      console.log('서버 응답:', response.data);
       alert('게시글이 등록되었습니다.');
       navigate('/');
+  
     } catch (err) {
-      console.error(err);
-      alert('게시글 등록에 실패했습니다.');
+      // 4. 상세 에러 처리
+      console.error('에러 상세:', {
+        status: err.response?.status,
+        data: err.response?.data,
+        message: err.message
+      });
+      alert(err.response?.data?.message || '게시글 등록 실패');
     }
   };
 
@@ -43,17 +69,6 @@ const BoardWrite = () => {
               className="form-control"
               name="title"
               value={formData.title}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label className="form-label">작성자</label>
-            <input
-              type="text"
-              className="form-control"
-              name="author"
-              value={formData.author}
               onChange={handleChange}
               required
             />

@@ -1,33 +1,42 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './signup.css';
+import axios from 'axios';
 
 // API 요청 함수 분리
-const checkUsername = async (username) => {
+const checkUsername = async (nickname) => {
   try {
-    const response = await fetch(`http://3.39.173.116:8080/member/checkUsername?username=${username}`);
-    return await response.json();
+    const { data } = await axios.post(
+      'http://3.39.173.116:8080/member/checkUsername',
+      { nickname },
+      { headers: { 'Content-Type': 'application/json' } }
+    );
+
+    // 모든 응답 케이스를 한 줄로 처리
+    return data === "checkUsername" ? false : 
+           typeof data === 'object' ? data.isUsernameExists :
+           data === "true";
   } catch (error) {
-    console.error('아이디 중복 검사 실패:', error);
-    return true; // 에러 발생 시 중복된 것으로 처리
+    console.error('아이디 검사 오류:', error.response?.data || error.message);
+    return true;
   }
 };
 
 const checkNickname = async (nickname) => {
   try {
-    const response = await fetch(`http://3.39.173.116:8080/member/checkNickname?nickname=${nickname}`);
-    const text = await response.text(); // 응답을 텍스트로 받음
-    console.log("서버 응답:", text); // 응답 로그 출력
-    try {
-      const data = JSON.parse(text); // JSON으로 파싱 시도
-      return data.isNicknameExists; // JSON 파싱 성공 시 반환
-    } catch (error) {
-      console.error('JSON 파싱 실패:', error);
-      return true; // JSON 파싱 실패 시 중복된 것으로 처리
-    }
+    const { data } = await axios.post(
+      'http://3.39.173.116:8080/member/checkNickname',
+      { nickname },
+      { headers: { 'Content-Type': 'application/json' } }
+    );
+
+    // 모든 응답 케이스를 한 줄로 처리
+    return data === "checkNickname" ? false : 
+           typeof data === 'object' ? data.isNicknameExists :
+           data === "true";
   } catch (error) {
-    console.error('닉네임 중복 검사 실패:', error);
-    return true; // 네트워크 오류 시 중복된 것으로 처리
+    console.error('닉네임 검사 오류:', error.response?.data || error.message);
+    return true;
   }
 };
 

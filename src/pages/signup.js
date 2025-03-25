@@ -5,7 +5,7 @@ import './signup.css';
 // API 요청 함수 분리
 const checkUsername = async (username) => {
   try {
-    const response = await fetch(`http://3.39.173.116:8080/member/checkusername?username=${username}`);
+    const response = await fetch(`http://3.39.173.116:8080/member/checkUsername?username=${username}`);
     return await response.json();
   } catch (error) {
     console.error('아이디 중복 검사 실패:', error);
@@ -15,11 +15,19 @@ const checkUsername = async (username) => {
 
 const checkNickname = async (nickname) => {
   try {
-    const response = await fetch(`http://3.39.173.116:8080/member/checknickname?nickname=${nickname}`);
-    return await response.json();
+    const response = await fetch(`http://3.39.173.116:8080/member/checkNickname?nickname=${nickname}`);
+    const text = await response.text(); // 응답을 텍스트로 받음
+    console.log("서버 응답:", text); // 응답 로그 출력
+    try {
+      const data = JSON.parse(text); // JSON으로 파싱 시도
+      return data.isNicknameExists; // JSON 파싱 성공 시 반환
+    } catch (error) {
+      console.error('JSON 파싱 실패:', error);
+      return true; // JSON 파싱 실패 시 중복된 것으로 처리
+    }
   } catch (error) {
     console.error('닉네임 중복 검사 실패:', error);
-    return true; // 에러 발생 시 중복된 것으로 처리
+    return true; // 네트워크 오류 시 중복된 것으로 처리
   }
 };
 

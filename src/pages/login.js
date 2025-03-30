@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './login.css';
@@ -44,8 +44,8 @@ const Login = () => {
       localStorage.setItem('token', pureToken); // Bearer 없이 저장
       console.log('저장된 토큰:', pureToken);
 
-      // 4. 로그인 성공 처리
-      navigate('/');
+      // 4. 로그인 성공 처리 후 페이지 새로고침
+      window.location.reload(); // 물리적 새로고침
 
     } catch (error) {
       console.error('로그인 실패:', {
@@ -56,6 +56,14 @@ const Login = () => {
       setError(error.response?.data?.message || '아이디 또는 비밀번호가 잘못되었습니다.');
     }
   };
+
+  useEffect(() => {
+    // 페이지가 새로고침 된 후 token이 있으면 홈으로 리디렉션
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/'); // 홈 페이지로 이동
+    }
+  }, [navigate]);
 
   return (
     <div>

@@ -5,62 +5,62 @@ import './Board.css';
 
 const BoardWrite = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    title: '',
-    content: '',
-  });
+  
+  // 상태 초기화 간소화
+  const [formData, setFormData] = useState({ title: '', content: '' });
+  const [loading, setLoading] = useState(false); // 로딩 상태 추가
+  const [error, setError] = useState(null); // 에러 상태 추가
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+  // 입력 변경 처리 함수
+  const handleChange = ({ target: { name, value } }) => {
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // 폼 제출 처리 함수
   const handleSubmit = async (e) => {
-    console.log(localStorage.getItem('token')); // 정상적인 토큰 값 출력 확인
     e.preventDefault();
-    try {
-      // 1. 토큰 필수 확인
-      const token = localStorage.getItem('token');
-      if (!token) {
-        alert('로그인이 필요합니다.');
-        return navigate('/login');
-      }
   
-      // 2. 요청 데이터 + 헤더에 토큰 포함
-      const response = await axios.post(
-        'http://3.39.173.116:8080/article/free',
-        formData, // JSON 데이터 { title, content }
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-  
-      // 3. 성공 시 처리
-      console.log('서버 응답:', response.data);
-      alert('게시글이 등록되었습니다.');
-      navigate('/');
-  
-    } catch (err) {
-      // 4. 상세 에러 처리
-      console.error('에러 상세:', {
-        status: err.response?.status,
-        data: err.response?.data,
-        message: err.message
-      });
-      alert(err.response?.data?.message || '게시글 등록 실패');
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('로그인이 필요합니다.');
+      return navigate('/login');
     }
-  };
+  
+    const payload = {
+      title: formData.title,
+      content: formData.content,
+    };
+  
+    try {
+      setLoading(true);
+      setError(null);
+  
+      // 서버에 POST 요청 보내기
+      await axios.post('http://3.39.173.116:8080/article/free', payload, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        }
+      });
+  
+      alert('게시글이 등록되었습니다.');
+      navigate('/board');
+    } catch (err) {
+      console.error('에러 상세:', err);
+      setError(err.response?.data?.message || '게시글 등록 실패');
+    } finally {
+      setLoading(false);
+    }
+  };  
 
   return (
     <div className="board-container">
       <div className="board-form">
         <h2>글쓰기</h2>
+        
+        {/* 에러 메시지 표시 */}
+        {error && <div className="error-message">{error}</div>}
+
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="form-label">제목</label>
@@ -73,6 +73,7 @@ const BoardWrite = () => {
               required
             />
           </div>
+          
           <div className="form-group">
             <label className="form-label">내용</label>
             <textarea
@@ -84,8 +85,15 @@ const BoardWrite = () => {
               required
             ></textarea>
           </div>
+
           <div className="button-group">
-            <button type="submit" className="btn btn-primary">저장</button>
+            <button 
+              type="submit" 
+              className="btn btn-primary" 
+              disabled={loading} // 로딩 중 버튼 비활성화
+            >
+              {loading ? '저장 중...' : '저장'}
+            </button>
           </div>
         </form>
       </div>

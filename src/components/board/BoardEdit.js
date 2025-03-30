@@ -3,27 +3,29 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Board.css';
 
-
 const BoardEdit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    title: '',
-    content: '',
-    author: ''
-  });
+  const [formData, setFormData] = useState(null);
+  const [initialData, setInitialData] = useState(null); 
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`http://3.39.173.116:8080/api/boards/${id}`);
-        setFormData({
-          title: res.data.title,
-          content: res.data.content,
-          author: res.data.author
-        });
+        const res = await axios.get(`http://3.39.173.116:8080/article/free/${id}`);
+        const article = res.data.article;
+        const formattedData = {
+          title: article.title || '',
+          content: article.content || '',
+          author: article.author.username || ''
+        };
+
+        setFormData(formattedData);
+        setInitialData(formattedData); // 초기 데이터 저장
+        setLoading(false);
       } catch (err) {
-        console.error(err);
+        console.error('게시글 불러오기 실패:', err);
         navigate('/');
       }
     };
@@ -41,15 +43,26 @@ const BoardEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // 수정된 내용이 없을 경우
+    if (JSON.stringify(initialData) === JSON.stringify(formData)) {
+      alert('수정된 내용이 없습니다.');
+      return;
+    }
+
     try {
-      await axios.put(`http://localhost:8080/api/boards/${id}`, formData);
+      await axios.put(`http://3.39.173.116:8080/article/free/${id}`, formData);
       alert('게시글이 수정되었습니다.');
       navigate(`/board/${id}`);
     } catch (err) {
-      console.error(err);
+      console.error('게시글 수정 실패:', err);
       alert('게시글 수정에 실패했습니다.');
     }
   };
+
+  if (loading) {
+    return <div>로딩 중...</div>;
+  }
 
   return (
     <div>
@@ -68,14 +81,7 @@ const BoardEdit = () => {
         </div>
         <div className="mb-3">
           <label className="form-label">작성자</label>
-          <input
-            type="text"
-            className="form-control"
-            name="author"
-            value={formData.author}
-            onChange={handleChange}
-            required
-          />
+          <p className="form-control-plaintext">{formData.author}</p>
         </div>
         <div className="mb-3">
           <label className="form-label">내용</label>

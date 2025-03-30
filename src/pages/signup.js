@@ -26,16 +26,22 @@ const checkNickname = async (nickname) => {
   try {
     const { data } = await axios.post(
       'http://3.39.173.116:8080/member/checkNickname',
-      { nickname },
-      { headers: { 'Content-Type': 'application/json' } }
+      JSON.stringify({ nickname }), // 명시적 JSON 변환
+      {
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8' // 인코딩 명시
+        }
+      }
     );
-
-    // 모든 응답 케이스를 한 줄로 처리
+    
     return data === "checkNickname" ? false : 
            typeof data === 'object' ? data.isNicknameExists :
            data === "true";
   } catch (error) {
-    console.error('닉네임 검사 오류:', error.response?.data || error.message);
+    console.error('닉네임 검사 오류:', {
+      request: error.config,
+      response: error.response?.data
+    });
     return true;
   }
 };

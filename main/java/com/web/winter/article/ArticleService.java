@@ -4,6 +4,10 @@ import com.web.winter.comment.Comment;
 import com.web.winter.comment.CommentRepository;
 import com.web.winter.member.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -40,12 +44,12 @@ public class ArticleService {
         return this.articleRepository.save(article);
     }
 
-    public Article edit(Article article, String title, String content, LocalDateTime editTime) {
+    public Article editArticle(Article article, String title, String content, LocalDateTime editTime) {
         article.edit(title, content, editTime);
         return this.articleRepository.save(article);
     }
 
-    public void delete(Article article) {
+    public void deleteArticle(Article article) {
         this.articleRepository.delete(article);
     }
 
@@ -55,5 +59,15 @@ public class ArticleService {
 
     public List<Comment> getCommentList(Article article) {
         return this.commentRepository.findAllByArticle(article);
+    }
+
+    public Page<Article> getFreeArticles(int page) {
+        Pageable pageable = PageRequest.of(page - 1, 10, Sort.by(Sort.Direction.DESC, "createTime"));
+        return articleRepository.findByArticleTypeOrderByCreateTimeDesc(ArticleType.FREE, pageable);
+    }
+
+    public Page<Article> getGatherArticles(int page) {
+        Pageable pageable = PageRequest.of(page - 1, 10, Sort.by(Sort.Direction.DESC, "createTime"));
+        return articleRepository.findByArticleTypeOrderByCreateTimeDesc(ArticleType.GATHER, pageable);
     }
 }

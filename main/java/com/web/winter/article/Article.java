@@ -28,8 +28,6 @@ public class Article {
 
     private LocalDateTime createTime;
 
-    //private LocalDateTime modifyTime;
-
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
     private List<Comment> commentList;
 

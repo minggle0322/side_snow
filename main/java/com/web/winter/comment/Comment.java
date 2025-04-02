@@ -1,5 +1,6 @@
 package com.web.winter.comment;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.web.winter.article.Article;
 import com.web.winter.member.Member;
 import jakarta.persistence.*;
@@ -23,6 +24,7 @@ public class Comment {
 
     private LocalDateTime createTime;
 
+    @JsonIgnore
     @ManyToOne
     private Article article;
 
@@ -31,5 +33,10 @@ public class Comment {
         this.author = author;
         this.createTime = createTime;
         this.article = article;
+    }
+
+    public void edit(String content, LocalDateTime editTime) {
+        this.content = content;
+        this.createTime = editTime;
     }
 }

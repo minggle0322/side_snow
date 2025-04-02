@@ -1,9 +1,12 @@
 package com.web.winter.member;
 
 import com.web.winter.DataNotFoundException;
+import com.web.winter.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -12,6 +15,7 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     public void create(RegisterForm registerForm) {
         /*if(!registerForm.getPassword().equals(registerForm.getPasswordCheck())) {
@@ -40,5 +44,17 @@ public class MemberService {
 
         if (member.isPresent()) return member.get();
         else throw new DataNotFoundException("member not found");
+    }
+
+    public Optional<Member> getMemberByToken(String auth) {
+        if (auth == null || !auth.startsWith("Bearer ")) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid JWT Token");
+        }
+
+        String token = auth.replace("Bearer ", "").trim();
+
+        Optional<Member> loginMember = this.memberRepository.findByUsername(jwtUtil.getUsername(token));
+
+        return loginMember;
     }
 }

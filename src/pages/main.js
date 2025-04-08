@@ -5,7 +5,7 @@ function Home() {
   const [hello, setHello] = useState('')
 
    useEffect(() => {
-       axios.get('http://3.39.173.116:8080/main')
+       axios.get('/main')
        .then(response => setHello(response.data))
        .catch(error => console.log(error))
    }, []);

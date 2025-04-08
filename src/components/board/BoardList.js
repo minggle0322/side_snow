@@ -40,7 +40,7 @@ const BoardList = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axios.get(`http://3.39.173.116:8080/article/free?page=${currentPage - 1}&size=${postsPerPage}`);
+        const res = await axios.get(`/article/free?page=${currentPage - 1}&size=${postsPerPage}`);
         
         setPosts(Array.isArray(res.data) ? res.data : []);
         setTotalPosts(Array.isArray(res.data) ? res.data.length : 0);

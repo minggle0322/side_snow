@@ -24,7 +24,7 @@ const Login = () => {
 
     try {
       // 1. 백엔드로 로그인 요청
-      const response = await axios.post('http://3.39.173.116:8080/member/login', {
+      const response = await axios.post('/member/login', {
         username: formData.username,
         password: formData.password,
       });

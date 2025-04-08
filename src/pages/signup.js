@@ -7,7 +7,7 @@ import axios from 'axios';
 const checkUsername = async (nickname) => {
   try {
     const { data } = await axios.post(
-      'http://3.39.173.116:8080/member/checkUsername',
+      '/member/checkUsername',
       { nickname },
       { headers: { 'Content-Type': 'application/json' } }
     );
@@ -25,7 +25,7 @@ const checkUsername = async (nickname) => {
 const checkNickname = async (nickname) => {
   try {
     const { data } = await axios.post(
-      'http://3.39.173.116:8080/member/checkNickname',
+      '/member/checkNickname',
       JSON.stringify({ nickname }), // 명시적 JSON 변환
       {
         headers: {
@@ -48,7 +48,7 @@ const checkNickname = async (nickname) => {
 
 const registerUser = async (userData) => {
   try {
-    const response = await fetch('http://3.39.173.116:8080/member/register', {
+    const response = await fetch('/member/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -13,7 +13,7 @@ const BoardEdit = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`http://3.39.173.116:8080/article/free/${id}`);
+        const res = await axios.get(`/article/free/${id}`);
         const article = res.data.article;
         const formattedData = {
           title: article.title || '',
@@ -51,7 +51,7 @@ const BoardEdit = () => {
     }
 
     try {
-      await axios.put(`http://3.39.173.116:8080/article/free/${id}`, formData);
+      await axios.put(`/article/free/${id}`, formData);
       alert('게시글이 수정되었습니다.');
       navigate(`/board/${id}`);
     } catch (err) {

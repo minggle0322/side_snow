@@ -1,0 +1,5 @@
+[[redirects]]
+from = "/proxy/*"
+  to = "요청주소(ex. https://whitebalance.site/)"
+  status = 200
+  force = true

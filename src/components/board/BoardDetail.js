@@ -12,7 +12,7 @@ const BoardDetail = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`/article/free/${id}`);
+        const res = await axios.get(`https://whitebalance.site/article/free/${id}`);
         setPost(res.data.article); 
         setLoading(false);
       } catch (err) {
@@ -49,7 +49,7 @@ const handleDelete = async () => {
     const token = localStorage.getItem('token');
     if (!token) throw new Error('No token found');
 
-    await axios.delete(`/article/free/${id}`, {
+    await axios.delete(`https://whitebalance.site/article/free/${id}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'

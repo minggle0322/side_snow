@@ -24,7 +24,7 @@ const Login = () => {
 
     try {
       // 1. 백엔드로 로그인 요청
-      const response = await axios.post('/member/login', {
+      const response = await axios.post('https://whitebalance.site/member/login', {
         username: formData.username,
         password: formData.password,
       });

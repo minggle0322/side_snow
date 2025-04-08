@@ -5,7 +5,7 @@ function Home() {
   const [hello, setHello] = useState('')
 
    useEffect(() => {
-       axios.get('/main')
+       axios.get('https://whitebalance.site/main')
        .then(response => setHello(response.data))
        .catch(error => console.log(error))
    }, []);

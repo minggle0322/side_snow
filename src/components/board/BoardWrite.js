@@ -36,7 +36,7 @@ const BoardWrite = () => {
       setError(null);
   
       // 서버에 POST 요청 보내기
-      await axios.post('/article/free', payload, {
+      await axios.post('https://whitebalance.site/article/free', payload, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',

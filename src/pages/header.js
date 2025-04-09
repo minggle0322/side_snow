@@ -24,30 +24,9 @@ const Header = () => {
     <header className="header">
       <div className="mainnav">
         <div className="logo">
-          <Link to="/">logo</Link>
-        </div>
-        <nav className="nav">
-          <ul className="nav-list">
-            {isLoggedIn ? (
-              <li className="nav-item">
-                <button onClick={handleLogout} className="logout-btn">로그아웃</button>
-              </li>
-            ) : (
-              <>
-                <li className="nav-item">
-                  <Link to="/login">로그인</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/signup">회원가입</Link>
-                </li>
-              </>
-            )}
-          </ul>
-        </nav>
-      </div>
+          <Link className='logoimg' to="/">logo</Link>
 
-      <div className="subnav">
-        <nav className="hover">
+          <nav className="hover">
           <ul className="hover-list">
             <li className="hover-item">
               스키장 이용정보
@@ -73,7 +52,31 @@ const Header = () => {
             </li>
           </ul>
         </nav>
+        </div>
+        <div className="subnav">
+
       </div>
+        <nav className="nav">
+          <ul className="nav-list">
+            {isLoggedIn ? (
+              <li className="nav-item">
+                <button onClick={handleLogout} className="logout-btn">로그아웃</button>
+              </li>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <Link to="/login">로그인</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/signup">회원가입</Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </nav>
+      </div>
+
+ 
     </header>
   );
 };

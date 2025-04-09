@@ -4,12 +4,17 @@ import './signup.css';
 import axios from 'axios';
 
 // API 요청 함수 분리
-const checkUsername = async (nickname) => {
+const checkUsername = async (username) => {
   try {
     const { data } = await axios.post(
       'https://whitebalance.site/member/checkUsername',
-      { nickname },
-      { headers: { 'Content-Type': 'application/json' } }
+      { username },
+      { 
+        headers: {
+           'Content-Type': 'application/json; charset=UTF-8' 
+          },
+          transformRequest: [(data) => JSON.stringify(data)]
+      }
     );
 
     // 모든 응답 케이스를 한 줄로 처리

@@ -1,7 +1,7 @@
 /* 헤더 전체 스타일 */
 .header {
     align-items: center;
-    padding: 1rem 2rem 0.1rem;
+    padding: 0rem 2rem 0.1rem;
     background-color: #333;
     color: white;
   }
@@ -9,14 +9,17 @@
 .mainnav {
     justify-content: space-between;
     display: flex;
+    align-items: center;
 }
   
   /* 로고 스타일 */
-  .logo a {
+  .logoimg {
     font-size: 1.5rem;
     font-weight: bold;
     color: white;
     text-decoration: none;
+    align-items: center;
+    padding-right: 5rem;
   }
   
   /* 네비게이션 메뉴 스타일 */
@@ -71,6 +74,11 @@
     text-align: center;
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .dropdown-menu a {
+    text-decoration: none;
+    color: inherit;
   }
   
   .dropdown-menu li {

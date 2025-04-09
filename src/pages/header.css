@@ -1,100 +1,157 @@
 /* 헤더 전체 스타일 */
 .header {
-    align-items: center;
-    padding: 0rem 2rem 0.1rem;
-    background-color: #333;
-    color: white;
-  }
-
-.mainnav {
-    justify-content: space-between;
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  background-color: #0f172a; /* Vercel 느낌의 어두운 남색 */
+  color: white;
+  justify-content: space-between;
+  position: relative;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-  
-  /* 로고 스타일 */
-  .logoimg {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: white;
-    text-decoration: none;
-    align-items: center;
-    padding-right: 5rem;
-  }
-  
-  /* 네비게이션 메뉴 스타일 */
-  .nav-list {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .nav-item {
-    margin-left: 1.5rem;
-  }
-  
-  .nav-item a {
-    color: white;
-    text-decoration: none;
-    font-size: 1rem;
-  }
-  
-  .nav-item a:hover {
-    color: #f0a500;
-  }
 
-  .hover-list {
-    display: flex;
-    list-style: none;
-    padding: 0;
-  }
+/* 메인 네비게이션 */
+.mainnav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
 
-  .hover-item {
-    position: relative; /* 드롭다운 메뉴 위치 기준 */
-    padding: 10px 20px;
-    cursor: pointer;
-  }
-  
-  .dropdown-menu {
-    display: block;
-    visibility: hidden;
-    position: absolute;
-    top: 100%; /* 상위 항목 아래에 위치 */
-    left: 50%;
-    transform: translateX(-50%) translateY(-10px);
-    background-color: white;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 10; /* 다른 요소 위에 표시 */
-    color: black;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
+/* 왼쪽: 로고 + 메뉴 */
+.left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
 
-  .dropdown-menu a {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  .dropdown-menu li {
-    padding: 10px 20px;
-    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
-  }
-  
-  .dropdown-menu li:hover {
-    background-color: #f1f1f1;
-  }
-  
-  /* 호버 시 드롭다운 메뉴 표시 */
-  .hover-item:hover .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
-  }
+/* 오른쪽: 로그인 영역 */
+.right {
+  display: flex;
+  align-items: center;
+}
 
-  
+
+/* 로고 영역 */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logoimg {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  padding-right: 5rem;
+}
+
+.logoimg:hover {
+  color: #00ffff;
+}
+
+/* 드롭다운 네비게이션 */
+.hover-list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 2rem;
+}
+
+.hover-item {
+  position: relative;
+  cursor: pointer;
+  padding: 10px 0;
+  font-size: 0.95rem;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.hover-item a { 
+  color: inherit;
+  text-decoration: none;
+}
+.hover-item:hover {
+  color: #00ffff;
+}
+
+.dropdown-menu {
+  display: block;
+  visibility: hidden;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background-color: white;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  color: black;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  border-radius: 0.4rem;
+  min-width: 120px;
+}
+
+.dropdown-menu a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.dropdown-menu li {
+  padding: 10px 20px;
+  white-space: nowrap;
+}
+
+.dropdown-menu li:hover {
+  background-color: #f1f1f1;
+}
+
+/* 호버 시 드롭다운 메뉴 표시 */
+.hover-item:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* 로그인/회원가입 nav */
+.nav {
+  display: flex;
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 1.5rem;
+}
+
+/* Vercel 스타일 버튼 */
+.nav-item a,
+.logout-btn {
+  color: #0f172a;
+  background-color: #00ffff;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-item a:hover,
+.logout-btn:hover {
+  background-color: #02d7d7;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 255, 255, 0.4);
+}

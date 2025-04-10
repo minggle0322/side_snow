@@ -40,10 +40,11 @@ const BoardList = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axios.get(`https://whitebalance.site/article/free?page=${currentPage - 1}&size=${postsPerPage}`);
+        const res = await axios.get(`https://whitebalance.site/article/free?page=${currentPage}`);
+
         
-        setPosts(Array.isArray(res.data) ? res.data : []);
-        setTotalPosts(Array.isArray(res.data) ? res.data.length : 0);
+        setPosts(Array.isArray(res.data.content) ? res.data.content : []);
+        setTotalPosts(res.data.totalElements || 0);
         
       } catch (err) {
         console.error('게시글 불러오기 실패:', err);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { SnowEffect } from "../components/snow/snoweffect";
 import "./main.css"
+import { Link } from 'react-router-dom';
 
 function Home() {
 
@@ -17,13 +18,15 @@ function Home() {
             <h1 className="hero-title">화이트밸런스</h1>
             <p className="hero-sub">스키와 스노우보드 애호가들을 위한 최고의 커뮤니티에 오신 것을 환영합니다.</p>
             <div className="hero-buttons">
-              <button className="btn-primary">
-                커뮤니티 가입하기
-                <svg className="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </button>
-              <button className="btn-outline">더 알아보기</button>
+            <Link to="/signup" className="main-btn-primary" style={{ textDecoration: 'none' }}>
+              커뮤니티 가입하기
+            <svg className="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+            </Link>
+            <Link to ="/" className="btn-outline">
+              더 알아보기
+            </Link>
             </div>
           </div>
         </section>

@@ -13,85 +13,112 @@ const Login = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // 1. 백엔드로 로그인 요청
       const response = await axios.post('https://whitebalance.site/member/login', {
         username: formData.username,
         password: formData.password,
       });
 
-      // 2. 토큰 추출 (Bearer 접두사 제거)
-      const rawToken = response.data.accessToken || 
-                      response.data.token ||
-                      response.headers['authorization'] ||
-                      response.headers['Authorization'];
+      const rawToken = response.data.accessToken ||
+                       response.data.token ||
+                       response.headers['authorization'] ||
+                       response.headers['Authorization'];
 
-      if (!rawToken) {
-        throw new Error('토큰이 응답에 없습니다');
-      }
+      if (!rawToken) throw new Error('토큰이 응답에 없습니다');
 
-      // 3. 순수 토큰 값만 추출 (Bearer 제거)
       const pureToken = rawToken.replace(/^Bearer\s+/i, '');
-      localStorage.setItem('token', pureToken); // Bearer 없이 저장
+      localStorage.setItem('token', pureToken);
       console.log('저장된 토큰:', pureToken);
 
-      // 4. 로그인 성공 처리 후 페이지 새로고침
-      window.location.reload(); // 물리적 새로고침
-
+      window.location.reload();
     } catch (error) {
-      console.error('로그인 실패:', {
-        status: error.response?.status,
-        data: error.response?.data,
-        message: error.message
-      });
+      console.error('로그인 실패:', error);
       setError(error.response?.data?.message || '아이디 또는 비밀번호가 잘못되었습니다.');
     }
   };
 
   useEffect(() => {
-    // 페이지가 새로고침 된 후 token이 있으면 홈으로 리디렉션
     const token = localStorage.getItem('token');
-    if (token) {
-      navigate('/'); // 홈 페이지로 이동
-    }
+    if (token) navigate('/');
   }, [navigate]);
 
   return (
-    <div>
-      <h2 className="login">로그인</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>아이디:</label>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
+    <div className="login-page">
+      <a href="/" className="back-link">
+        ← 홈으로 돌아가기
+      </a>
+
+      <div className="login-card">
+        <div className="login-card-header">
+          <h2 className="login-title">화이트밸런스 로그인</h2>
+          <p className="login-sub">계정 정보를 입력하여 로그인하세요.</p>
         </div>
-        <div>
-          <label>비밀번호:</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
+
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="username" className="login-label">아이디</label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              placeholder="your_id"
+              className="login-input"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div style={{ marginTop: '1rem' }}>
+            <label htmlFor="password" className="login-label">비밀번호</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="••••••••"
+              className="login-input"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="remember-me">
+            <input type="checkbox" id="remember" />
+            <label htmlFor="remember">로그인 상태 유지</label>
+          </div>
+
+          {error && (
+            <p style={{ color: 'tomato', marginTop: '0.75rem', fontSize: '0.875rem' }}>{error}</p>
+          )}
+
+          <button type="submit" className="login-button">
+            로그인
+          </button>
+        </form>
+
+        <div className="signup-text">
+          계정이 없으신가요?
+          <a href="/signup">회원가입</a>
         </div>
-        <button type="submit">로그인</button>
-      </form>
+
+        <div className="divider">
+          <span>또는</span>
+        </div>
+
+        <button className="social-login">
+          소셜 계정으로 로그인
+        </button>
+      </div>
     </div>
   );
 };

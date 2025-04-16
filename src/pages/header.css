@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   padding: 1.2rem 2rem;
-  background-color: #0f172a; /* Vercel 느낌의 어두운 남색 */
+  background-color: #0f172a;
   color: white;
   justify-content: space-between;
   position: relative;
@@ -32,13 +32,7 @@
   align-items: center;
 }
 
-
 /* 로고 영역 */
-.logo {
-  display: flex;
-  align-items: center;
-}
-
 .logoimg {
   font-size: 1.8rem;
   font-weight: bold;
@@ -122,10 +116,6 @@
 }
 
 /* 로그인/회원가입 nav */
-.nav {
-  display: flex;
-}
-
 .nav-list {
   display: flex;
   list-style: none;
@@ -154,4 +144,156 @@
   background-color: #02d7d7;
   transform: translateY(-1px);
   box-shadow: 0 2px 6px rgba(0, 255, 255, 0.4);
+}
+
+/* 햄버거 메뉴 스타일 */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 21px;
+  z-index: 1000;
+}
+
+.hamburger-line {
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.hamburger-line.open:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-line.open:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-line.open:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* 모바일 메뉴 스타일 */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100vh;
+  background-color: #0f172a;
+  transition: right 0.3s ease;
+  z-index: 999;
+  padding-top: 80px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-menu.open {
+  right: 0;
+}
+
+.mobile-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-nav-item {
+  position: relative;
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+}
+
+.mobile-nav-item a {
+  color: white;
+  text-decoration: none;
+  display: block;
+}
+
+.mobile-nav-item a:hover {
+  color: #00ffff;
+}
+
+/* 모바일 드롭다운 스타일 */
+.mobile-dropdown {
+  list-style: none;
+  padding: 0 0 0 20px;
+  margin: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.mobile-nav-item.active .mobile-dropdown {
+  max-height: 500px;
+  padding: 10px 0 0 20px;
+}
+
+.mobile-dropdown li {
+  padding: 8px 0;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+}
+
+.mobile-dropdown li:hover {
+  color: #00ffff;
+}
+
+/* 모바일 네비게이션 아이템 화살표 표시 */
+.mobile-nav-item:nth-child(2):after,
+.mobile-nav-item:nth-child(3):after,
+.mobile-nav-item:nth-child(4):after {
+  content: '▼';
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  transition: transform 0.3s ease;
+}
+
+.mobile-nav-item.active:after {
+  transform: rotate(180deg);
+}
+
+.mobile-logout-btn {
+  color: #0f172a;
+  background-color: #00ffff;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  text-align: center;
+}
+
+.mobile-logout-btn:hover {
+  background-color: #02d7d7;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 255, 255, 0.4);
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+  .hover {
+    display: none;
+  }
+  
+  .right {
+    display: none;
+  }
+  
+  .hamburger {
+    display: flex;
+  }
+  
+  .logoimg {
+    padding-right: 0;
+  }
 }

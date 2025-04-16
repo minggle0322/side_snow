@@ -33,6 +33,7 @@ const Login = () => {
                        response.headers['authorization'] ||
                        response.headers['Authorization'];
 
+
       if (!rawToken) throw new Error('토큰이 응답에 없습니다');
 
       const pureToken = rawToken.replace(/^Bearer\s+/i, '');

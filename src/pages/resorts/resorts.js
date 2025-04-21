@@ -251,9 +251,9 @@ const Resorts = () => {
         <div className="footer-container">
           <p>&copy; 2025 화이트밸런스. 모든 권리 보유.</p>
           <div className="footer-links">
-            <a href="#">이용약관</a>
-            <a href="#">개인정보처리방침</a>
-            <a href="#">문의하기</a>
+            <a href="/">이용약관</a>
+            <a href="/">개인정보처리방침</a>
+            <a href="/">문의하기</a>
           </div>
         </div>
       </footer>

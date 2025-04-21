@@ -5,6 +5,7 @@ import Header from "./pages/header";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
 import BoardPage from './pages/BoardPage';
+import Resorts from './pages/resorts/ResortPage';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path="/signup" element={<Signup/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/board/*" element={<BoardPage />} />
+          <Route path="/resorts/*" element={<Resorts/>} />
         </Routes>
        </div>
     </Router>

@@ -55,13 +55,7 @@ const Header = () => {
             <nav className="hover">
               <ul className="hover-list">
                 <li className="hover-item"><Link to="/">홈</Link></li>
-                <li className="hover-item">
-                  스키장 이용정보
-                  <ul className="dropdown-menu">
-                    <li>스키장별</li>
-                    <li>정보별</li>
-                  </ul>
-                </li>
+                <li className="hover-item"><Link to="/resorts">스키장 이용정보</Link></li>
                 <li className="hover-item">
                   장터
                   <ul className="dropdown-menu">
@@ -117,10 +111,6 @@ const Header = () => {
               onClick={() => toggleDropdown('ski')}
             >
               스키장 이용정보
-              <ul className="mobile-dropdown">
-                <li onClick={() => setIsMenuOpen(false)}>스키장별</li>
-                <li onClick={() => setIsMenuOpen(false)}>정보별</li>
-              </ul>
             </li>
             
             <li 

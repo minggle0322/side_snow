@@ -1,0 +1,494 @@
+/* 기본 스타일 */
+:root {
+    --slate-900: #0f172a;
+    --slate-800: #1e293b;
+    --slate-700: #334155;
+    --slate-600: #475569;
+    --slate-500: #64748b;
+    --slate-400: #94a3b8;
+    --slate-300: #cbd5e1;
+    --slate-200: #e2e8f0;
+    --slate-100: #f1f5f9;
+    --slate-50: #f8fafc;
+    --cyan-500: #06b6d4;
+    --cyan-600: #0891b2;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.5;
+  }
+  
+  .icon {
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  /* 헤더 스타일 */
+  .resorts-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    border-bottom: 1px solid var(--slate-700);
+    background-color: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(8px);
+  }
+  
+  .header-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+  }
+  
+  .logo-text {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--cyan-500);
+  }
+  
+  /* 메인 배너 */
+  .hero-banner {
+    position: relative;
+    width: 100%;
+    height: 16rem;
+    overflow: hidden;
+  }
+  
+  .banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+  }
+  
+  .banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 0%, var(--slate-900) 100%);
+  }
+  
+  .banner-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .banner-content h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .banner-content p {
+    font-size: 1.125rem;
+    color: #e0f2fe;
+    max-width: 42rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* 컨텐츠 영역 */
+  .content-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  
+  /* 필터 카드 */
+  .filter-card {
+    background-color: var(--slate-800);
+    border: 1px solid var(--slate-700);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .filter-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    .filter-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  .search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-container svg {
+    position: absolute;
+    left: 0.5rem;
+    color: var(--slate-400);
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+    background-color: var(--slate-900);
+    border: 1px solid var(--slate-700);
+    border-radius: 0.25rem;
+    color: white;
+  }
+  
+  .search-input::placeholder {
+    color: var(--slate-400);
+  }
+  
+  .select-container {
+    width: 100%;
+  }
+  
+  .filter-select {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: var(--slate-900);
+    border: 1px solid var(--slate-700);
+    border-radius: 0.25rem;
+    color: white;
+  }
+  
+  .filter-button {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: var(--cyan-500);
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .filter-button:hover {
+    background-color: var(--cyan-600);
+  }
+  
+  /* 리조트 카드 */
+  .resort-card {
+    background-color: var(--slate-800);
+    border: 1px solid var(--slate-700);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  
+  .resort-card:hover {
+    border-color: var(--cyan-500);
+  }
+  
+  .card-image-container {
+    position: relative;
+    aspect-ratio: 16/9;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .card-image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+  
+  .resort-card:hover .card-image {
+    transform: scale(1.05);
+  }
+  
+  .weather-badge-container {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+  
+  .weather-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  
+  .bg-yellow-500\/20 {
+    background-color: rgba(234, 179, 8, 0.2);
+  }
+  
+  .text-yellow-400 {
+    color: #facc15;
+  }
+  
+  .bg-gray-500\/20 {
+    background-color: rgba(107, 114, 128, 0.2);
+  }
+  
+  .text-gray-400 {
+    color: #9ca3af;
+  }
+  
+  .bg-blue-500\/20 {
+    background-color: rgba(59, 130, 246, 0.2);
+  }
+  
+  .text-blue-400 {
+    color: #60a5fa;
+  }
+  
+  .card-content {
+    padding: 1rem;
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+  }
+  
+  .resort-name {
+    font-size: 1.125rem;
+    font-weight: bold;
+  }
+  
+  .location {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--slate-300);
+    margin-bottom: 0.5rem;
+  }
+  
+  .difficulty-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid;
+  }
+  
+  .difficulty-badge.초급 {
+    border-color: #10b981;
+    color: #34d399;
+  }
+  
+  .difficulty-badge.중급 {
+    border-color: #3b82f6;
+    color: #60a5fa;
+  }
+  
+  .difficulty-badge.상급 {
+    border-color: #ef4444;
+    color: #f87171;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .stat-item {
+    background-color: var(--slate-900);
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .stat-title {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--cyan-500);
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  
+  .stat-value {
+    font-size: 1.125rem;
+    font-weight: bold;
+  }
+  
+  .slope-status {
+    text-align: center;
+    padding: 0.25rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  
+  .slope-status.good {
+    background-color: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+  }
+  
+  .slope-status.fair {
+    background-color: rgba(234, 179, 8, 0.2);
+    color: #facc15;
+  }
+  
+  .slope-status.poor {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+  }
+  
+  /* 리조트 그리드 */
+  .resorts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  @media (min-width: 768px) {
+    .resorts-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .resorts-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .resort-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  /* 페이지네이션 */
+  .pagination-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .pagination-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--slate-700);
+    background-color: transparent;
+    color: var(--slate-300);
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  
+  .pagination-button:hover {
+    background-color: var(--slate-700);
+  }
+  
+  .pagination-button.active {
+    background-color: var(--slate-700);
+    color: white;
+  }
+  
+  /* 푸터 스타일 */
+  .resorts-footer {
+    border-top: 1px solid var(--slate-800);
+    background-color: var(--slate-900);
+  }
+  
+  .footer-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    .footer-container {
+      height: 6rem;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0 1rem;
+    }
+  }
+  
+  .footer-container p {
+    font-size: 0.875rem;
+    color: var(--slate-400);
+    text-align: center;
+  }
+  
+  .footer-links {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .footer-links a {
+    font-size: 0.875rem;
+    color: var(--slate-400);
+    text-decoration: none;
+  }
+  
+  .footer-links a:hover {
+    color: var(--cyan-500);
+    text-decoration: underline;
+  }
+  
+  /* 반응형 조정 */
+  @media (max-width: 640px) {
+    .hero-banner {
+      height: 12rem;
+    }
+    
+    .banner-content h1 {
+      font-size: 1.5rem;
+    }
+    
+    .banner-content p {
+      font-size: 1rem;
+    }
+  }

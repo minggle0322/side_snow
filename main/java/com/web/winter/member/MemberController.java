@@ -1,7 +1,6 @@
 package com.web.winter.member;
 
 import com.web.winter.jwt.JwtUtil;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -52,12 +51,5 @@ public class MemberController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Signup failed: " + e.getMessage());
         }
-    }
-
-    @PostMapping("/member/login")
-    public ResponseEntity<?> login(@RequestBody LoginForm loginForm, HttpServletResponse response) {
-        String token = jwtUtil.createJwt(loginForm.getUsername(), "USER", 1000 * 60 * 60L);
-
-        return ResponseEntity.ok(Map.of("token", token));
     }
 }
